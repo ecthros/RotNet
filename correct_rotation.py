@@ -8,7 +8,7 @@ import argparse
 from keras.applications.imagenet_utils import preprocess_input
 from keras.models import load_model
 
-from utils import RotNetDataGenerator, crop_largest_rectangle, angle_error, rotate
+from RotNet.rotnetutils import RotNetDataGenerator, crop_largest_rectangle, angle_error, rotate
 
 
 def process_images(model, input_path, output_path,
@@ -81,3 +81,13 @@ if __name__ == '__main__':
         print('Processsing input image(s)...')
         process_images(model_location, path, output_path,
                    args.batch_size, args.crop)
+MODEL_LOCATION = None
+OUTPUT_PATH = "./tilted.jpg"
+def init_rotnet(model=None):
+    global MODEL_LOCATION 
+    MODEL_LOCATION = load_model(model, custom_objects={'angle_error': angle_error})
+
+def rotate_image(path):
+    print(MODEL_LOCATION)
+    print(OUTPUT_PATH)
+    process_images(MODEL_LOCATION, path, OUTPUT_PATH, None, None)

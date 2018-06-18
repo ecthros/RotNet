@@ -65,7 +65,7 @@ def process_images(model, input_path, output_path,
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('model', help='Path to model')
-    parser.add_argument('input_path', help='Path to image or directory')
+    parser.add_argument('-i', '--input_path', help='Path to image or directory')
     parser.add_argument('-o', '--output_path', help='Output directory')
     parser.add_argument('-b', '--batch_size', help='Batch size for running the network')
     parser.add_argument('-c', '--crop', dest='crop', default=False, action='store_true',
@@ -74,8 +74,10 @@ if __name__ == '__main__':
 
     print('Loading model...')
     model_location = load_model(args.model, custom_objects={'angle_error': angle_error})
-    output_path = args.output_path if args.output_path else args.input_path
+    output_path = args.output_path if args.output_path else "./tilted.jpg"
 
-    print('Processsing input image(s)...')
-    process_images(model_location, args.input_path, output_path,
+    while True:
+        path = str(input(" Specify File >>> "))
+        print('Processsing input image(s)...')
+        process_images(model_location, path, output_path,
                    args.batch_size, args.crop)

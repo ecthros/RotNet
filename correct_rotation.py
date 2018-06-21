@@ -40,7 +40,7 @@ def process_images(model, input_path, output_path,
             crop_largest_rect=True,
             crop_center=True
         ),
-        val_samples=len(image_paths)
+        steps=len(image_paths)
     )
 
     predicted_angles = np.argmax(predictions, axis=1)
@@ -88,6 +88,6 @@ def init_rotnet(model=None):
     MODEL_LOCATION = load_model(model, custom_objects={'angle_error': angle_error})
 
 def rotate_image(path):
-    print(MODEL_LOCATION)
-    print(OUTPUT_PATH)
+    #print(MODEL_LOCATION)
+    #print(OUTPUT_PATH)
     process_images(MODEL_LOCATION, path, OUTPUT_PATH, None, None)

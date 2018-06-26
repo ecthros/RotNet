@@ -86,6 +86,7 @@ OUTPUT_PATH = "./tilted.jpg"
 def init_rotnet(model=None):
     global MODEL_LOCATION 
     MODEL_LOCATION = load_model(model, custom_objects={'angle_error': angle_error})
+    MODEL_LOCATION._make_predict_function()
 
 def rotate_image(path):
     #print(MODEL_LOCATION)
